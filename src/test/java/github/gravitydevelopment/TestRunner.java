@@ -1,4 +1,4 @@
-package git.gravitydevelopment;
+package github.gravitydevelopment;
 
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.Suite;
