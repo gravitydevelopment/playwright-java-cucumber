@@ -1,5 +1,6 @@
 {
   "info": {
+    "_postman_id": "aed44e3f-9e12-45aa-8a53-483e3ad1f8c1",
     "name": "qainterview",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -12,16 +13,28 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response time is less than 2000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(2000);\n});\n\npm.test(\"Response has a body\", function () {\n    pm.response.to.have.body;\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body contains HTML\", function () {\n    pm.expect(pm.response.text()).to.include(\"<!DOCTYPE html>\");\n});"
+              "pm.test(\"Status code is 201\", function () {\n    pm.response.to.have.status(201);\n});\n\npm.test(\"Response has a body\", function () {\n    pm.response.to.have.body;\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Verify 'Added to watchlist' success message\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData).to.have.property('message');\n    pm.expect(jsonData.message).to.eql(\"Added to watchlist.\");\n});"
             ]
           }
         }
       ],
       "request": {
-        "method": "GET",
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
         "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"Farizam\",\r\n  \"symbol\": \"AAPL\",\r\n  \"name\": \"Apple Inc.\",\r\n  \"price\": 150.54,\r\n  \"change\": 0.5,\r\n  \"change_percent\": 0.5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
-          "raw": "https://qainterview.netlify.app/watchlist_post",
+          "raw": "https://qainterview.netlify.app/.netlify/functions/watchlist_post",
           "protocol": "https",
           "host": [
             "qainterview",
@@ -29,6 +42,8 @@
             "app"
           ],
           "path": [
+            ".netlify",
+            "functions",
             "watchlist_post"
           ]
         }
@@ -43,16 +58,40 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response time is less than 3000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(3000);\n});\n\npm.test(\"Response has a body (not empty)\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Content-Type header contains text/html\", function () {\n    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/html\");\n});\n\npm.test(\"Response body contains a login form\", function () {\n    pm.expect(pm.response.text()).to.include(\"loginForm\");\n});\n\npm.test(\"Response body contains a username input field\", function () {\n    pm.expect(pm.response.text()).to.include('id=\"username\"');\n});\n\npm.test(\"Response body contains a password input field\", function () {\n    pm.expect(pm.response.text()).to.include('id=\"password\"');\n});\n\npm.test(\"Response body contains a login button\", function () {\n    pm.expect(pm.response.text()).to.include('id=\"loginBtn\"');\n});"
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response time is less than 3000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(3000);\n});\n\npm.test(\"Response has a body (not empty)\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is a valid array list\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData).to.be.an('array');\n    pm.expect(jsonData.length).to.be.above(0);\n});\n\npm.test(\"Data Quality Audit: Check for Null or Empty string fields\", function () {\n    var jsonData = pm.response.json();\n    \n    jsonData.forEach(function (item) {\n        pm.expect(item.name, `Item ID ${item.id} has an invalid or missing name field`).to.be.a('string').and.not.empty;\n        pm.expect(item.price, `Item ID ${item.id} has an invalid or missing price field`).to.not.be.null;\n    });\n});\n\npm.test(\"Schema Keys Validation\", function () {\n    var jsonData = pm.response.json();\n    var firstEntry = jsonData[0];\n    \n    pm.expect(firstEntry).to.have.all.keys('id', 'user_id', 'symbol', 'name', 'price', 'change', 'change_percent');\n});\n"
             ]
           }
         }
       ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
-        "header": [],
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
-          "raw": "https://qainterview.netlify.app/watchlist_get",
+          "raw": "https://qainterview.netlify.app/.netlify/functions/watchlist_get?username=Farizam",
           "protocol": "https",
           "host": [
             "qainterview",
@@ -60,7 +99,15 @@
             "app"
           ],
           "path": [
+            ".netlify",
+            "functions",
             "watchlist_get"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "Farizam"
+            }
           ]
         }
       },
