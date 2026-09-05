@@ -27,13 +27,13 @@ public class LoginPage {
     }
 
     public void verifyUsernameEntryfield(){
-        assertThat(loginButton).isVisible();
-        assertThat(loginButton).isEditable();
+        assertThat(usernameEntryfield).isVisible();
+        assertThat(usernameEntryfield).isEditable();
     }
 
     public void verifyPasswordEntryfield(){
-        assertThat(loginButton).isVisible();
-        assertThat(loginButton).isEditable();
+        assertThat(passwordEntryField).isVisible();
+        assertThat(passwordEntryField).isEditable();
     }
 
     public void verifyLoginButton(){
