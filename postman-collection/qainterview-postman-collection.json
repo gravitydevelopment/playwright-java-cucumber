@@ -1,0 +1,70 @@
+{
+  "info": {
+    "name": "qainterview",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "watchlist_post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response time is less than 2000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(2000);\n});\n\npm.test(\"Response has a body\", function () {\n    pm.response.to.have.body;\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body contains HTML\", function () {\n    pm.expect(pm.response.text()).to.include(\"<!DOCTYPE html>\");\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://qainterview.netlify.app/watchlist_post",
+          "protocol": "https",
+          "host": [
+            "qainterview",
+            "netlify",
+            "app"
+          ],
+          "path": [
+            "watchlist_post"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "watchlist_get",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response time is less than 3000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(3000);\n});\n\npm.test(\"Response has a body (not empty)\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Content-Type header contains text/html\", function () {\n    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/html\");\n});\n\npm.test(\"Response body contains a login form\", function () {\n    pm.expect(pm.response.text()).to.include(\"loginForm\");\n});\n\npm.test(\"Response body contains a username input field\", function () {\n    pm.expect(pm.response.text()).to.include('id=\"username\"');\n});\n\npm.test(\"Response body contains a password input field\", function () {\n    pm.expect(pm.response.text()).to.include('id=\"password\"');\n});\n\npm.test(\"Response body contains a login button\", function () {\n    pm.expect(pm.response.text()).to.include('id=\"loginBtn\"');\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://qainterview.netlify.app/watchlist_get",
+          "protocol": "https",
+          "host": [
+            "qainterview",
+            "netlify",
+            "app"
+          ],
+          "path": [
+            "watchlist_get"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
