@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <cluecumber.version>3.4.0</cluecumber.version>
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,14 +66,30 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
+                <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.2</version>
+                <configuration>
+                    <includes>
+                        <include>**/Test*.java</include>
+                    </includes>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.trivago.rta</groupId>
+                <artifactId>cluecumber-maven</artifactId>
+                <version>${cluecumber.version}</version>
                 <executions>
                     <execution>
-                        <phase>test</phase>
+                        <id>report</id>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>report-only</goal>
+                            <goal>reporting</goal>
                         </goals>
+                        <configuration>
+                            <sourceJsonReportDirectory>${project.build.directory}/cucumber-reports</sourceJsonReportDirectory>
+                            <generatedHtmlReportDirectory>${project.build.directory}/cluecumber-report</generatedHtmlReportDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

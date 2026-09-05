@@ -6,8 +6,8 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 
 public class PlaywrightHook {
-    private static Playwright playwright;
-    private static Browser browser;
+    private Playwright playwright;
+    private Browser browser;
     private BrowserContext browserContext;
     private Page page;
     private Scenario scenario;
