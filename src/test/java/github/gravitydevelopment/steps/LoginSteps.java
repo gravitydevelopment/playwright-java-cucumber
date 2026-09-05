@@ -25,7 +25,7 @@ public class LoginSteps {
         loginPage.verifyPasswordEntryfield();
     }
 
-    @And("Verify login button is displayed")
+    @And("Verify login button is visible with default disable")
     public void verifyLoginPage(){
         loginPage.verifyLoginButton();
     }
@@ -39,5 +39,23 @@ public class LoginSteps {
     public void clickRegisterLink(){
         loginPage.clickCreateNewUserLink();
     }
+
+    @And("User enter username {string}")
+    public void enterUsername(String username) {
+        loginPage.enterCredential("username", username);
+    }
+
+    @And("User enter password {string}")
+    public void enterPassword(String password) {
+        loginPage.enterCredential("password", password);
+    }
+
+    @And("User click login button and access the system")
+    public void accessingTheSystem() {
+        loginPage.loginTheSystem();
+    }
+
+
+
 
 }

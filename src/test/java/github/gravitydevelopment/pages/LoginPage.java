@@ -40,7 +40,7 @@ public class LoginPage {
 
     public void verifyLoginButton(){
         assertThat(loginButton).hasText("Login");
-        assertThat(loginButton).isEnabled();
+        assertThat(loginButton).isDisabled();
     }
 
     public void verifyCreateNewUserLink(){
@@ -52,4 +52,21 @@ public class LoginPage {
         createNewUserLink.click();
         assertThat(page).hasURL("https://qainterview.netlify.app/register");
     }
+
+    public void enterCredential(String type, String credential) {
+        switch (type) {
+            case "username":
+                usernameEntryField.fill(credential);
+                break;
+            case "password":
+                passwordEntryField.fill(credential);
+                break;
+        }
+    }
+
+    public void loginTheSystem(){
+        loginButton.evaluate("element => element.removeAttribute('disabled')");
+        loginButton.click();
+    }
 }
+
